@@ -1,0 +1,74 @@
+{
+  "people": [
+    {
+      "id": 0,
+      "isActive": false,
+      "picture": "http://placehold.it/32x32",
+      "name": "Russell Hunter",
+      "email": "russellhunter@applidec.com",
+      "phone": "+1 (952) 420-3552",
+      "greeting": "Hello, Russell Hunter! You have 5 unread messages.",
+      "favoriteFruit": "banana"
+    },
+    {
+      "id": 1,
+      "isActive": true,
+      "picture": "http://placehold.it/32x32",
+      "name": "Mccullough Roman",
+      "email": "mcculloughroman@applidec.com",
+      "phone": "+1 (889) 560-3755",
+      "greeting": "Hello, Mccullough Roman! You have 2 unread messages.",
+      "favoriteFruit": "banana"
+    },
+    {
+      "id": 2,
+      "isActive": false,
+      "picture": "http://placehold.it/32x32",
+      "name": "Frye Shepard",
+      "email": "fryeshepard@applidec.com",
+      "phone": "+1 (983) 427-3719",
+      "greeting": "Hello, Frye Shepard! You have 5 unread messages.",
+      "favoriteFruit": "banana"
+    },
+    {
+      "id": 3,
+      "isActive": true,
+      "picture": "http://placehold.it/32x32",
+      "name": "Small Fitzpatrick",
+      "email": "smallfitzpatrick@applidec.com",
+      "phone": "+1 (835) 533-2438",
+      "greeting": "Hello, Small Fitzpatrick! You have 9 unread messages.",
+      "favoriteFruit": "banana"
+    },
+    {
+      "id": 4,
+      "isActive": true,
+      "picture": "http://placehold.it/32x32",
+      "name": "Acevedo Strickland",
+      "email": "acevedostrickland@applidec.com",
+      "phone": "+1 (972) 468-3467",
+      "greeting": "Hello, Acevedo Strickland! You have 3 unread messages.",
+      "favoriteFruit": "apple"
+    },
+    {
+      "id": 5,
+      "isActive": true,
+      "picture": "http://placehold.it/32x32",
+      "name": "Wells Mcleod",
+      "email": "wellsmcleod@applidec.com",
+      "phone": "+1 (974) 537-3590",
+      "greeting": "Hello, Wells Mcleod! You have 6 unread messages.",
+      "favoriteFruit": "apple"
+    },
+    {
+      "id": 6,
+      "isActive": false,
+      "picture": "http://placehold.it/32x32",
+      "name": "Oconnor Burt",
+      "email": "oconnorburt@applidec.com",
+      "phone": "+1 (833) 487-3123",
+      "greeting": "Hello, Oconnor Burt! You have 8 unread messages.",
+      "favoriteFruit": "banana"
+    }
+  ]
+}

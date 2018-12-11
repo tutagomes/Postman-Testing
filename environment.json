@@ -1,0 +1,16 @@
+{
+  "id": "d7d351b6-5c12-deb5-e587-8ea62398f1b2",
+  "name": "JSON-Server Environment",
+  "values": [
+    {
+      "enabled": true,
+      "key": "url",
+      "value": "localhost:3000",
+      "type": "text"
+    }
+  ],
+  "timestamp": 1544562997238,
+  "_postman_variable_scope": "environment",
+  "_postman_exported_at": "2018-12-11T21:51:45.841Z",
+  "_postman_exported_using": "Postman/5.5.2"
+}

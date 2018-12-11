@@ -1,0 +1,375 @@
+{
+	"info": {
+		"name": "Testing JSON-Server",
+		"_postman_id": "8c5e18e3-4fae-4afa-0740-250ba3bc9b32",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Testing first iteration",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ef7ad30f-4ce7-4b81-a1a6-4bb44e3ff4fd",
+						"type": "text/javascript",
+						"exec": [
+							"// As it is local served, the response time should be less than 50ms",
+							"pm.test(\"Response time is less than 50ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(50);",
+							"});",
+							"",
+							"// We expect the GET request to return a code 200 - Success",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// As we generated 7 objects, it is expected the array to be exactly 7 instances long.",
+							"pm.test(\"Body contains certain amount objects\", function () {",
+							"    let response = pm.response.json();",
+							"    pm.expect(response.length).to.be.equal(7);",
+							"});",
+							"// As we generated 7 objects, it is expected the array to have more than 6 objects.",
+							"pm.test(\"Body contains more than 6 objects\", function () {",
+							"    let response = pm.response.json();",
+							"    pm.expect(response.length).to.not.be.below(6);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{url}}/people",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"people"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Testing insertion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "07ff7695-f489-427b-9693-2fc2068944ad",
+						"type": "text/javascript",
+						"exec": [
+							"// As it is local served, the response time should be less than 100ms",
+							"pm.test(\"Response time is less than 100ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(100);",
+							"});",
+							"// It should give us a successful POST response",
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+							"});",
+							"// It should give us an object with an ID property",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"id\");",
+							"});",
+							"// Now, we need to get that ID to further continue our tests",
+							"let body = pm.response.json();",
+							"pm.globals.set(\"id\", body.id);",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"isActive\": false,\n    \"picture\": \"http://placehold.it/32x32\",\n    \"name\": \"Russell Hunter\",\n    \"email\": \"russellhunter@applidec.com\",\n    \"phone\": \"+1 (952) 420-3552\",\n    \"greeting\": \"Hello, Russell Hunter! You have 5 unread messages.\",\n    \"favoriteFruit\": \"banana\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/people",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"people"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Checking if object was inserted",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4874ace2-fb78-4da9-8197-806b6d68ddd3",
+						"type": "text/javascript",
+						"exec": [
+							"// As it is local served, the response time should be less than 50ms",
+							"pm.test(\"Response time is less than 50ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(50);",
+							"});",
+							"",
+							"// We expect the GET request to return a code 200 - Success",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// As we generated 7 objects and added one, it is expected the array to be exactly 8 instances long.",
+							"pm.test(\"Body contains certain amount objects\", function () {",
+							"    let response = pm.response.json();",
+							"    pm.expect(response.length).to.be.equal(8);",
+							"});",
+							"",
+							"// As we generated 7 objects, it is expected the array to have more than 6 objects.",
+							"pm.test(\"Body contains more than 6 objects\", function () {",
+							"    let response = pm.response.json();",
+							"    pm.expect(response.length).to.not.be.below(6);",
+							"});",
+							"",
+							"// Does the repsonse includes our user email?",
+							"pm.test(\"Body contains added user email\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"russellhunter@applidec.com\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{url}}/people",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"people"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Updating object",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6d43b449-dba3-4543-8687-0844ba77fe73",
+						"type": "text/javascript",
+						"exec": [
+							"// As it is local served, the response time should be less than 50ms",
+							"pm.test(\"Response time is less than 50ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(50);",
+							"});",
+							"",
+							"// We expect the GET request to return a code 200 - Success",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Does the repsonse includes our updated user email?",
+							"pm.test(\"Body contains added user email\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"testing@testing.com\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"isActive\": false,\n    \"picture\": \"http://placehold.it/32x32\",\n    \"name\": \"Testing User\",\n    \"email\": \"testing@testing.com\",\n    \"phone\": \"+1 (952) 420-3552\",\n    \"greeting\": \"Hello, Russell Hunter! You have 5 unread messages.\",\n    \"favoriteFruit\": \"banana\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/people/{{id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"people",
+						"{{id}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Checking if object was updated",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4874ace2-fb78-4da9-8197-806b6d68ddd3",
+						"type": "text/javascript",
+						"exec": [
+							"// As it is local served, the response time should be less than 50ms",
+							"pm.test(\"Response time is less than 50ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(50);",
+							"});",
+							"",
+							"// We expect the GET request to return a code 200 - Success",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// As we generated 7 objects and added one, it is expected the array to be exactly 8 instances long.",
+							"pm.test(\"Body contains certain amount objects\", function () {",
+							"    let response = pm.response.json();",
+							"    pm.expect(response.length).to.be.equal(8);",
+							"});",
+							"",
+							"// As we generated 7 objects, it is expected the array to have more than 6 objects.",
+							"pm.test(\"Body contains more than 6 objects\", function () {",
+							"    let response = pm.response.json();",
+							"    pm.expect(response.length).to.not.be.below(6);",
+							"});",
+							"",
+							"// Does the repsonse includes our user email?",
+							"pm.test(\"Body contains added user email\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"russellhunter@applidec.com\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{url}}/people",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"people"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Deleting object",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5ddf7c3b-a26a-42bc-9949-ae00cca21d50",
+						"type": "text/javascript",
+						"exec": [
+							"// As it is local served, the response time should be less than 50ms",
+							"pm.test(\"Response time is less than 50ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(50);",
+							"});",
+							"",
+							"// We expect the GET request to return a code 200 - Success",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{url}}/people/{{id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"people",
+						"{{id}}"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Checking if object was deleted",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cc9ac0cb-9be7-431e-87e1-e6c5ce7fcf46",
+						"type": "text/javascript",
+						"exec": [
+							"// As it is local served, the response time should be less than 50ms",
+							"pm.test(\"Response time is less than 50ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(50);",
+							"});",
+							"",
+							"// We expect the GET request to return a code 200 - Success",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// As we generated 7 objects, it is expected the array to be exactly 7 instances long.",
+							"pm.test(\"Body contains certain amount objects\", function () {",
+							"    let response = pm.response.json();",
+							"    pm.expect(response.length).to.be.equal(7);",
+							"});",
+							"",
+							"// As we generated 7 objects, it is expected the array to have more than 6 objects.",
+							"pm.test(\"Body contains more than 6 objects\", function () {",
+							"    let response = pm.response.json();",
+							"    pm.expect(response.length).to.not.be.below(6);",
+							"});",
+							"",
+							"// Does the repsonse includes our user email?",
+							"pm.test(\"Body contains added user email\", function () {",
+							"    pm.expect(pm.response.text()).to.not.include(\"testing@testing.com\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{url}}/people",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"people"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
